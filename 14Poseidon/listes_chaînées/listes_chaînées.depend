@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1673646140 source:d:\c_essai\listes_chaînées\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<conio.h>
+	<windows.h>
+	"Nombre.h"
+
+1673646130 d:\c_essai\listes_chaînées\nombre.h
+
+1673653909 source:d:\c_essai\listes_chaînées\nombre.c
+	"Nombre.h"
+	<stddef.h>
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+

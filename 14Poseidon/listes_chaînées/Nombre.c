@@ -2,7 +2,12 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <windows.h>
+void Color(int couleurDuTexte,int couleurDeFond) // fonction d'affichage de couleurs
+{
+        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
 //création d'un maillon
 Nombre* creer_maillon(int value)
 {
@@ -57,11 +62,11 @@ int longueurDeLaliste(Nombre*tete)
     return longueur;
 }
 
-void InsertionTete(Nombre* tete,int a)          //Nombre**tete pour désigner le contenu de la tete
+void InsertionTete(Nombre*tete,int a)          //Nombre**tete pour désigner le contenu de la tete
 {
     Nombre*Nouveau=creer_maillon(a);
     Nouveau->next= tete;     // le nouveau noeud pointe vers l'élement de la tete
-    tete=Nouveau;           //le contenu de la tete prend le nouvelle valeur du nouveau
+    tete = Nouveau;
     affichageDeLaListe(tete);
 }
 void InsertionQueue(Nombre*tete, int a)
@@ -82,8 +87,8 @@ void InsertionEnUnePositionP(Nombre*tete,int d,int k)
     Nombre*Ancien=NULL;
     Nombre*Nouveau=creer_maillon(d);
     Nombre*Now=tete;
-    int i=0;
-    if(k==0)
+    int i=1;
+    if(k==1)
     {
         Nouveau->next=Now;
         tete=Nouveau;
@@ -137,18 +142,31 @@ void suppressionEnPositionP(Nombre*tete,int p)
 }
 void suppressionEnQueue(Nombre*tete)
 {
-    Nombre*AncienNombre;
-    Nombre*Now=tete;
-    Nombre*nbreSupp=NULL;
 
-    while(Now->next!=NULL)
+    Nombre * Now=tete;
+    Now=malloc(sizeof(Nombre));
+    if(tete!=NULL)
     {
-        Now=Now->next;
+        if(tete->next==NULL)
+        {
+            free(tete);
+            tete==NULL;
+        }
+        else{
+            Now=tete;
+            while(Now->next->next!=NULL)
+            {
+                Now=Now->next;
+            }
+            free(Now->next);
+            Now->next=NULL;
+
+        }
     }
-    nbreSupp=Now;
-    AncienNombre->next=nbreSupp->next;
-    free(nbreSupp);
+    printf("Opération réussie!!\n");
+    printf("Affichage de la nouvelle liste: ");
     affichageDeLaListe(tete);
+
 }
 int recherche(Nombre*tete, int a)
 {
@@ -164,7 +182,7 @@ int recherche(Nombre*tete, int a)
     }
     return i;
 }
-void triageCroissant(Nombre*tete)
+int trieCroissant(Nombre*tete)
 {
     Nombre*Now;         //pointeur qui parcours la liste
     Nombre*Apres;      //pointeur qui parcours aussi la liste mais en fonction de Now
@@ -184,7 +202,7 @@ void triageCroissant(Nombre*tete)
             }
         }
     }
-    affichageDeLaListe(tete);
+    return 0;
 }
 void eliminDoublons(Nombre*tete)
 {
@@ -209,8 +227,37 @@ void eliminDoublons(Nombre*tete)
     }
     affichageDeLaListe(tete);
 }
-ajoutAuBonEndroit()
+void ajoutAuBonEndroit(Nombre*tete)
 {
+    int donnee=0;
+    Nombre*Newelement=creer_maillon(donnee);
+    Nombre*Now=tete, *Next;
+
+    if(trieCroissant(tete)!=0)
+    {
+        printf("\nListe non triée ! Veuillez choisir l'option '11-' pour trier la liste\n");
+    }
+    else
+    {
+         printf("veuillez entrer l'élément à ajouter dans la liste: \n élément =");
+        scanf("%d",&donnee);
+          while(Now->next!=NULL)
+        {
+            Next=Now;
+            Now=Now->next;
+            if(Next->donnee<=Newelement->donnee && Now->donnee>Newelement->donnee)
+            {
+                Next->next=Newelement;
+                Newelement->next=Now;
+            }
+        }
+        if(Now->next == NULL)
+        {
+            Now->next=Newelement;
+            Newelement=NULL;
+        }
+        printf("Opération réussi!!!");
+        affichageDeLaListe(tete);
+    }
 
 }
-

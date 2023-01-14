@@ -8,6 +8,7 @@ typedef struct Maillon{
 }Nombre;
 
 
+void Color(int couleurDuTexte,int couleurDeFond);
 Nombre* creer_maillon(int value);
 Nombre* creer_liste();
 void affichageDeLaListe(Nombre*tete);
@@ -16,11 +17,13 @@ void InsertionTete(Nombre*tete, int a);
 void InsertionQueue(Nombre*tete, int a);
 void InsertionEnUnePositionP(Nombre*tete,int d,int k);
 void suppressionEnTete(Nombre*tete);
+void suppressionEnTete(Nombre*tete);
 void suppressionEnPositionP(Nombre*tete, int p);
 void suppressionEnQueue(Nombre*tete);
 int recherche(Nombre*tete,int a);
-void triageCroissant(Nombre*tete);
+int trieCroissant(Nombre*tete);
 void eliminDoublons(Nombre*tete);
+void ajoutAuBonEndroit(Nombre*tete);
 
 
 
